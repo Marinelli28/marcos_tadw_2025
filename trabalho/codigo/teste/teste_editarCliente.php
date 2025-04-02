@@ -6,5 +6,5 @@ $nome = "fulano";
 $cpf = "111.222.333";
 $endereco = "rua 14";
 
-salvarCliente($conexao, $nome, $cpf, $endereco);
+editarCliente($conexao, $nome, $cpf, $endereco);
 ?>

@@ -26,7 +26,7 @@ function listarClientes($conexao) {
 
     mysqli_stmt_close($comando);
     return $lista_clientes;
-}
+};
 
 function salvarCliente($conexao, $nome, $cpf, $endereco) {
     $sql = "INSERT INTO tb_cliente (nome, cpf, endereco) VALUES (?, ?, ?)";
@@ -62,7 +62,88 @@ function salvarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $mar
 
     mysqli_stmt_close($comando);
     return $funcionou;
-//varchar e S
-//decimal e d
 };
+
+
+function listarProdutos($conexao) {
+    $sql = "SELECT * FROM tb_produto";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_execute($comando);
+    $resultado = mysqli_stmt_get_result($comando);
+
+    $lista_Produtos = [];
+    while ($produto = mysqli_fetch_assoc($resultado)) {
+        $lista_produto[] = $produto;
+    }
+
+    mysqli_stmt_close($comando);
+    return $lista_produto;
+};
+    
+
+function editarCliente($conexao, $nome, $cpf, $endereco,) {
+    $sql = "INSERT INTO tb_cliente (nome, cpf, endereco) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'sss', $nome, $cpf, $endereco);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    
+    mysqli_stmt_close($comando);
+    return $funcionou;
+};
+
+function editarProduto($conexao, $nome, $tipo, $preco_compra, $preco_venda, $margem_lucro, $quantidade) {
+    $sql = "INSERT INTO tb_produto (nome, tipo, preco_compra, preco_venda, margem_lucro, quantidade) VALUES (?, ?, ?, ?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'ssdddd', $nome, $tipo, $preco_compra, $preco_venda, $margem_lucro, $quantidade);
+
+    $funcionou = mysqli_stmt_execute($comando);
+
+    mysqli_stmt_close($comando);
+    return $funcionou;
+};
+ 
+function salvarUsuario($conexao, $nome, $email, $senha) {
+    $sql = "INSERT INTO tb_usuario (nome, email, senha) VALUES (?, ?, ?)";
+    $comando = mysqli_prepare($conexao, $sql);
+    
+    mysqli_stmt_bind_param($comando, 'sss', $nome, $email, $senha);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    
+    mysqli_stmt_close($comando);
+    return $funcionou;
+};
+
+
+function pesquisarClienteId($conexao, $idcliente) {
+    $sql = "SELECT * FROM tb_Cliente WHERE idcliente = ?";
+    $comando = mysqli_prepare($conexao, $sql);
+
+    mysqli_stmt_bind_param($comando, 'i', $idcliente);
+    
+    $funcionou = mysqli_stmt_execute($comando);
+    
+    mysqli_stmt_close($comando);
+    return $funcionou;
+    };
+    
+    // retornar uma variável com todos os dados do produto
+   function pesquisarProdutoId() {};
+    
+    //mostrar o nome do cliente ao invés do id
+    //mostrar o nome do produto ao invés do id
+    function listarVendas() {};
+
+    //function salvarVenda() {};
+
+     // varchar, string, data -> s
+    // inteiro -> i
+    // dinheiro, decimal -> d
+    ?>
+ 
+
 ?>
